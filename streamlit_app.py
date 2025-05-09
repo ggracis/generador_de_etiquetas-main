@@ -12,7 +12,7 @@ import os
 st.set_page_config(
     page_title="Generador de Etiquetas",
     page_icon="imgs/CAME-Transparente.ico.ico",
-    layout="wide",
+    layout="centered",
     initial_sidebar_state="collapsed",
     menu_items={
         'Get Help': None,
@@ -468,5 +468,5 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-# Agrega el marcador
-st.markdown('<div class="footer">Desarrollado por el departamento de <a href="https://www.redcame.org.ar/" target="_blank">Estadísticas y Bases de Datos de CAME</a></div>', unsafe_allow_html=True)
+
+
