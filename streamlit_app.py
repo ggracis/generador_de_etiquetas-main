@@ -21,11 +21,22 @@ st.set_page_config(
     }
 )
 
-# Ocultar el footer de Streamlit
+# Ocultar el footer de Streamlit y personalizar estilos
 hide_streamlit_style = """
 <style>
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
+
+/* Quitar el cursor de enlace */
+a {
+    cursor: default !important;
+    text-decoration: none !important;
+}
+
+/* Opcional: si quieres que el enlace cambie de color al pasar el mouse */
+a:hover {
+    color: inherit !important;
+}
 </style>
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
