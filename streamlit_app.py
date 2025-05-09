@@ -8,11 +8,27 @@ import pytz
 import pandas as pd
 import os
 
-# Título de la aplicación
+# Configuración para ocultar elementos de la UI
 st.set_page_config(
     page_title="Generador de Etiquetas",
     page_icon="imgs/CAME-Transparente.ico.ico",
-    )
+    layout="wide",
+    initial_sidebar_state="collapsed",
+    menu_items={
+        'Get Help': None,
+        'Report a bug': None,
+        'About': None
+    }
+)
+
+# Ocultar el footer de Streamlit
+hide_streamlit_style = """
+<style>
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+</style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 # Configuración de rutas para archivos locales
 DATA_DIR = "data"
