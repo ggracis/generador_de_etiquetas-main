@@ -10,7 +10,7 @@ import os
 
 # Configuración para ocultar elementos de la UI
 st.set_page_config(
-    page_title="Generador de Etiquetas - CAME",
+    page_title="Generador de Etiquetas",
     page_icon="imgs/CAME-Transparente.ico.ico",
     layout="centered",
     initial_sidebar_state="collapsed",
@@ -36,30 +36,7 @@ st.markdown("""
     </head>
 """, unsafe_allow_html=True)
 
-# Agregar schema.org markup
-st.markdown("""
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "Generador de Etiquetas CAME",
-        "description": "Herramienta para generar etiquetas de precios según la resolución 04/2025",
-        "url": "https://came.ar/generador-etiquetas",
-        "applicationCategory": "BusinessApplication",
-        "operatingSystem": "Web",
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "ARS"
-        },
-        "provider": {
-            "@type": "Organization",
-            "name": "CAME",
-            "url": "https://came.ar"
-        }
-    }
-    </script>
-""", unsafe_allow_html=True)
+
 
 # Ocultar el footer de Streamlit y personalizar estilos
 hide_streamlit_style = """
@@ -77,46 +54,9 @@ a {
 a:hover {
     color: inherit !important;
 }
-
-/* Estilos para SEO */
-.description {
-    margin: 20px 0;
-    padding: 15px;
-    background-color: #f8f9fa;
-    border-radius: 5px;
-}
-
-.breadcrumb {
-    padding: 8px 15px;
-    margin-bottom: 20px;
-    list-style: none;
-    background-color: #f5f5f5;
-    border-radius: 4px;
-}
-
-.breadcrumb-item {
-    display: inline-block;
-}
-
-.breadcrumb-item + .breadcrumb-item::before {
-    content: ">";
-    padding: 0 5px;
-    color: #6c757d;
-}
 </style>
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
-
-# Agregar breadcrumbs
-st.markdown("""
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="https://came.ar">Inicio</a></li>
-            <li class="breadcrumb-item"><a href="https://came.ar/herramientas">Herramientas</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Generador de Etiquetas</li>
-        </ol>
-    </nav>
-""", unsafe_allow_html=True)
 
 # Configuración de rutas para archivos locales
 DATA_DIR = "data"
@@ -175,21 +115,16 @@ def provincia(fecha_actual, hora_actual, provincia):
 columna_titulo, columna_logo = st.columns([2,1])
 with columna_titulo:
     # Aplicar estilos de formato CSS para agrandar el título
-    st.markdown("<h1 style='text-align: left; font-size: 54px; font-family: Verdana, sans-serif;'>Generador de Etiquetas de Precios - CAME</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: left; font-size: 54px; font-family: Verdana, sans-serif;'>Generador de etiquetas</h1>", unsafe_allow_html=True)
 with columna_logo:
     st.write("")
     st.write("")
-    st.image("imgs/CAME-Transparente.png", use_container_width=True, alt="Logo CAME - Confederación Argentina de la Mediana Empresa")
+    st.image("imgs/CAME-Transparente.png", use_container_width=True)
     
-# Agregar descripción semántica
-st.markdown("""
-    <div class="description">
-        <h2>Herramienta oficial para generar etiquetas de precios según la resolución 04/2025</h2>
-        <p>Esta aplicación permite a los comercios generar etiquetas de precios cumpliendo con la normativa vigente, incluyendo el desglose de IVA y precios por unidad.</p>
-    </div>
-""", unsafe_allow_html=True)
-
 st.write("#### De acuerdo a la [resolución 04/2025.](https://www.argentina.gob.ar/sites/default/files/exhibicion_de_precios_resolucion_4_2025.pdf)")
+
+    
+
 
 st.write("---")
 
