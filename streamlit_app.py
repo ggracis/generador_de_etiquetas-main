@@ -96,21 +96,33 @@ def calificacion(fecha_actual, hora_actual, evaluation):
     
 # Creamos la función para agregar datos    
 def provincia(fecha_actual, hora_actual, provincia):
-    # Leer el CSV existente
-    df = pd.read_csv(PROVINCIAS_FILE)
-    
-    # Create a DataFrame with the new data
-    new_data = pd.DataFrame({
-        'Fecha': [fecha_actual],
-        'Hora': [hora_actual],
-        'Provincia': [provincia],
-    })
-    
-    # Append the new DataFrame to the existing DataFrame
-    df = pd.concat([df, new_data], ignore_index=True)
-    
-    # Save the updated DataFrame
-    df.to_csv(PROVINCIAS_FILE, index=False)
+    try:
+        # Asegurarse de que el directorio existe
+        os.makedirs(DATA_DIR, exist_ok=True)
+        
+        # Leer el CSV existente o crear uno nuevo si no existe
+        if os.path.exists(PROVINCIAS_FILE):
+            df = pd.read_csv(PROVINCIAS_FILE)
+        else:
+            df = pd.DataFrame(columns=['Fecha', 'Hora', 'Provincia'])
+        
+        # Crear un DataFrame con los nuevos datos
+        new_data = pd.DataFrame({
+            'Fecha': [fecha_actual],
+            'Hora': [hora_actual],
+            'Provincia': [provincia],
+        })
+        
+        # Agregar los nuevos datos al DataFrame existente
+        df = pd.concat([df, new_data], ignore_index=True)
+        
+        # Guardar el DataFrame actualizado
+        df.to_csv(PROVINCIAS_FILE, index=False)
+        
+        return True
+    except Exception as e:
+        st.error(f"Error al guardar los datos: {str(e)}")
+        return False
 
 columna_titulo, columna_logo = st.columns([2,1])
 with columna_titulo:
@@ -332,16 +344,12 @@ if precio_valido and provincia_seleccionada != "-":
     
         # Obtener la hora en formato hh:mm:ss
         hora_actual = fecha_hora_actual.strftime("%H:%M:%S")
-        # Agregar st.write para verificar el valor de evaluation
-        try:
-            provincia(fecha_actual, hora_actual, provincia_seleccionada)
-        # Si salta error, esperar dos segundos y volver a cargar    
-        except Exception:
-            try:
-                time.sleep(2)
-                provincia(fecha_actual, hora_actual, provincia_seleccionada)
-            except Exception:
-                pass
+        
+        # Guardar la provincia seleccionada
+        if provincia(fecha_actual, hora_actual, provincia_seleccionada):
+            st.success("Datos guardados correctamente")
+        else:
+            st.warning("No se pudieron guardar los datos")
     else: pass
 
     
